@@ -1,0 +1,93 @@
+{
+  "Header": {
+    "services": "Services",
+    "faq": "FAQ",
+    "contact": "Contact"
+  },
+  "Home": {
+    "hero": {
+      "title1": "Empowering Businesses to Reach",
+      "title2": "New Digital Heights",
+      "cta": "Request a Consultation"
+    },
+    "keywords": [
+      "Partner in Digital Growth",
+      "Custom Web Development",
+      "UX & UI Design",
+      "Enterprise E-Commerce",
+      "Digital Strategy That Drives Results",
+      "Future-Proof & Scalable Architectures",
+      "Performance Optimization",
+      "Brand Identity",
+      "Secure & Reliable Solutions"
+    ],
+    "services": {
+      "details": "Details",
+      "customWebsites": {
+        "title": "Custom Websites",
+        "description": "More than just beautiful — engineered for results. Your website is your digital flagship. We build modern, high-performance sites that reflect your brand and drive conversions."
+      },
+      "ecommerce": {
+        "title": "E-Commerce",
+        "description": "Enterprise-grade online stores that scale. Whether B2B or B2C, we create e-commerce platforms that deliver, optimizing every step of the buyer journey for growth."
+      },
+      "businessApps": {
+        "title": "Business Applications",
+        "description": "Custom-built tools to streamline your operations. We design and develop secure, scalable business applications tailored to your workflow, from internal platforms to client-facing portals."
+      },
+      "marketingSeo": {
+        "title": "Marketing & SEO",
+        "description": "We architect digital growth — not just presence. Get found, get clicks, get results with full-service SEO, Google Ads, and social media campaigns tailored to your market."
+      }
+    },
+    "faq": {
+      "label": "FAQ",
+      "title": "Frequently Asked Questions",
+      "description": "Here are some of the most common questions we get.",
+      "items": [
+        {
+          "q": "How long will it take to develop my website / app?",
+          "a": "The timeline depends on the complexity of your project and your requirements. We focus on quality, not shortcuts. For most projects, we provide clear milestones and realistic deadlines after a detailed consultation."
+        },
+        {
+          "q": "Do you build custom solutions or use templates/CMS?",
+          "a": "We specialize in tailored solutions. For business-critical systems, we recommend fully custom-built applications using modern frameworks. For smaller projects, we may use a CMS if it fits the client's needs."
+        },
+        {
+          "q": "Can you integrate my current systems (CRM, ERP, etc.)?",
+          "a": "Yes, absolutely. We have extensive experience with third-party system integrations and APIs. We analyze your current setup and ensure a smooth connection between your tools and the new solution."
+        },
+        {
+          "q": "Will I be able to update the content on my own after launch?",
+          "a": "Absolutely. If needed, we provide intuitive admin panels or CMS solutions that allow you to manage your content without technical knowledge. Training and documentation can be included."
+        }
+      ]
+    },
+    "contactCta": {
+      "title": "Let's talk about your project",
+      "description": "Ready to start? We're here to help you achieve your business goals.",
+      "button": "GET IN TOUCH"
+    }
+  },
+  "Contact": {
+    "label": "Contact Us",
+    "title": "Let's Build Together",
+    "description": "Have a project in mind or just want to learn more? We'd love to hear from you. Fill out the form, and we'll get back to you as soon as possible.",
+    "form": {
+      "fullname": "Your Fullname",
+      "email": "Your E-Mail",
+      "company": "Your Company (Optional)",
+      "phone": "Your Phone",
+      "message": "Your Message",
+      "privacy": "I agree to the {link}Privacy Policy{/link}.",
+      "submit": "Send Message"
+    }
+  },
+  "Footer": {
+    "about": "About Us",
+    "imprint": "Imprint",
+    "terms": "Terms of Service",
+    "privacy": "Privacy",
+    "rights": "All rights reserved."
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "Header": {
+    "services": "Leistungen",
+    "faq": "FAQ",
+    "contact": "Kontakt"
+  },
+  "Home": {
+    "hero": {
+      "title1": "Unternehmen zu neuen",
+      "title2": "digitalen Höhen verhelfen",
+      "cta": "Beratung anfordern"
+    },
+    "keywords": [
+      "Partner für digitales Wachstum",
+      "Individuelle Webentwicklung",
+      "UX & UI Design",
+      "Enterprise E-Commerce",
+      "Digitale Strategien mit Wirkung",
+      "Zukunftssichere skalierbare Architekturen",
+      "Performance-Optimierung",
+      "Markenidentität",
+      "Sichere und zuverlässige Lösungen"
+    ],
+    "services": {
+      "details": "Details",
+      "customWebsites": {
+        "title": "Individuelle Websites",
+        "description": "Mehr als nur schön – auf Ergebnisse ausgelegt. Ihre Website ist Ihr digitales Aushängeschild. Wir erstellen moderne, leistungsstarke Seiten, die Ihre Marke widerspiegeln und Conversions steigern."
+      },
+      "ecommerce": {
+        "title": "E-Commerce",
+        "description": "Skalierbare Online-Shops in Unternehmensqualität. Ob B2B oder B2C – wir entwickeln E-Commerce-Plattformen, die in jeder Phase der Customer Journey Wachstum fördern."
+      },
+      "businessApps": {
+        "title": "Business-Anwendungen",
+        "description": "Individuell entwickelte Tools zur Optimierung Ihrer Abläufe. Wir gestalten sichere, skalierbare Anwendungen, die auf Ihren Workflow zugeschnitten sind – von internen Plattformen bis zu Kundenportalen."
+      },
+      "marketingSeo": {
+        "title": "Marketing & SEO",
+        "description": "Wir gestalten digitales Wachstum – nicht nur Präsenz. Werden Sie gefunden, erhalten Sie Klicks und Ergebnisse mit umfassender SEO, Google Ads und Social-Media-Kampagnen für Ihren Markt."
+      }
+    },
+    "faq": {
+      "label": "FAQ",
+      "title": "Häufig gestellte Fragen",
+      "description": "Hier finden Sie Antworten auf die häufigsten Fragen.",
+      "items": [
+        {
+          "q": "Wie lange dauert die Entwicklung meiner Website bzw. App?",
+          "a": "Der Zeitrahmen hängt von der Komplexität Ihres Projekts und Ihren Anforderungen ab. Wir legen Wert auf Qualität statt auf Abkürzungen. Nach einer detaillierten Beratung erhalten Sie klare Meilensteine und realistische Fristen."
+        },
+        {
+          "q": "Erstellen Sie maßgeschneiderte Lösungen oder nutzen Sie Vorlagen/CMS?",
+          "a": "Wir spezialisieren uns auf individuelle Lösungen. Für geschäftskritische Systeme empfehlen wir vollständig maßgeschneiderte Anwendungen mit modernen Frameworks. Für kleinere Projekte kann ein CMS eingesetzt werden, wenn es sinnvoll ist."
+        },
+        {
+          "q": "Können Sie meine bestehenden Systeme (CRM, ERP usw.) integrieren?",
+          "a": "Ja, auf jeden Fall. Wir verfügen über umfassende Erfahrung mit Drittanbieter-Integrationen und APIs. Wir analysieren Ihre aktuelle Infrastruktur und stellen eine nahtlose Verbindung zwischen Ihren Tools und der neuen Lösung sicher."
+        },
+        {
+          "q": "Kann ich die Inhalte nach dem Launch selbst aktualisieren?",
+          "a": "Natürlich. Bei Bedarf stellen wir intuitive Admin-Oberflächen oder CMS-Lösungen bereit, mit denen Sie Inhalte ohne technisches Wissen verwalten können. Schulungen und Dokumentation sind möglich."
+        }
+      ]
+    },
+    "contactCta": {
+      "title": "Lassen Sie uns über Ihr Projekt sprechen",
+      "description": "Bereit für den Start? Wir unterstützen Sie dabei, Ihre Geschäftsziele zu erreichen.",
+      "button": "KONTAKT AUFNEHMEN"
+    }
+  },
+  "Contact": {
+    "label": "Kontakt",
+    "title": "Lassen Sie uns gemeinsam aufbauen",
+    "description": "Sie haben ein Projekt oder möchten mehr erfahren? Wir freuen uns auf Ihre Nachricht. Füllen Sie das Formular aus und wir melden uns schnellstmöglich.",
+    "form": {
+      "fullname": "Ihr vollständiger Name",
+      "email": "Ihre E-Mail",
+      "company": "Ihr Unternehmen (optional)",
+      "phone": "Ihre Telefonnummer",
+      "message": "Ihre Nachricht",
+      "privacy": "Ich stimme der {link}Datenschutzerklärung{/link} zu.",
+      "submit": "Nachricht senden"
+    }
+  },
+  "Footer": {
+    "about": "Über uns",
+    "imprint": "Impressum",
+    "terms": "Nutzungsbedingungen",
+    "privacy": "Datenschutz",
+    "rights": "Alle Rechte vorbehalten."
+  }
+}

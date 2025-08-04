@@ -1,13 +1,14 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { motion, AnimatePresence } from "framer-motion"
 import { LogoIcon } from "./icons/logo-icon"
 import { AnimatedBurgerIcon } from "./icons/animated-burger-icon"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { ChevronDown } from "lucide-react"
+import { useTranslations, useLocale } from "next-intl"
+import { createNavigation } from "next-intl/navigation"
 
 const menuVariants = {
   hidden: {
@@ -36,10 +37,16 @@ const navItemVariants = {
   visible: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 100 } },
 }
 
+const locales = ["de", "en"]
+const { usePathname, useRouter, Link } = createNavigation({ locales })
+
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [language, setLanguage] = useState("DE")
+  const locale = useLocale()
+  const router = useRouter()
+  const pathname = usePathname()
+  const t = useTranslations("Header")
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,26 +57,30 @@ export default function Header() {
   }, [])
 
   const navLinks = [
-    { href: "#services", label: "Services" },
-    { href: "#faq", label: "FAQ" },
-    { href: "/contact", label: "Contact" },
+    { href: "#services", label: t("services") },
+    { href: "#faq", label: t("faq") },
+    { href: "/contact", label: t("contact") },
   ]
+
+  const changeLocale = (lng: string) => {
+    router.replace(pathname, { locale: lng })
+  }
 
   const LanguageSwitcher = () => (
     <DropdownMenu>
       <DropdownMenuTrigger className="flex items-center gap-1 text-gray-300 hover:text-white transition-colors text-sm font-medium outline-none">
-        {language}
+        {locale.toUpperCase()}
         <ChevronDown className="h-4 w-4" />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="bg-black/50 backdrop-blur-lg border-gray-800 text-gray-200 min-w-[80px]">
         <DropdownMenuItem
-          onClick={() => setLanguage("DE")}
+          onClick={() => changeLocale("de")}
           className="cursor-pointer focus:bg-purple-500/20 focus:text-white"
         >
           DE
         </DropdownMenuItem>
         <DropdownMenuItem
-          onClick={() => setLanguage("EN")}
+          onClick={() => changeLocale("en")}
           className="cursor-pointer focus:bg-purple-500/20 focus:text-white"
         >
           EN

@@ -2,8 +2,10 @@ import Link from "next/link"
 import { Instagram, Linkedin } from "lucide-react"
 import { XLogo } from "./icons/x-logo"
 import { LogoIcon } from "./icons/logo-icon"
+import { useTranslations } from "next-intl"
 
 export default function Footer() {
+  const t = useTranslations("Footer")
   return (
     <footer className="border-t border-white/10 mt-20">
       <div className="container mx-auto py-12 px-4 md:px-6">
@@ -16,16 +18,16 @@ export default function Footer() {
 
             <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm md:absolute md:left-1/2 md:-translate-x-1/2">
               <Link href="#hero" className="text-gray-400 hover:text-white transition-colors" prefetch={false}>
-                About Us
+                {t("about")}
               </Link>
               <Link href="#" className="text-gray-400 hover:text-white transition-colors" prefetch={false}>
-                Imprint
+                {t("imprint")}
               </Link>
               <Link href="#" className="text-gray-400 hover:text-white transition-colors" prefetch={false}>
-                Terms of Service
+                {t("terms")}
               </Link>
               <Link href="#" className="text-gray-400 hover:text-white transition-colors" prefetch={false}>
-                Privacy
+                {t("privacy")}
               </Link>
             </nav>
 
@@ -53,7 +55,7 @@ export default function Footer() {
           <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-purple-500/50 to-transparent" />
 
           <p className="text-sm text-gray-500">
-            &copy; {new Date().getFullYear()} Digital Heights. All rights reserved.
+            &copy; {new Date().getFullYear()} Digital Heights. {t("rights")}
           </p>
         </div>
       </div>
