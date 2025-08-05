@@ -55,21 +55,38 @@
     "react-dom": "^19",
     "react-hook-form": "^7.60.0",
     "react-resizable-panels": "^2.1.7",
+<<<<<<< HEAD
+=======
+    "react-tsparticles": "latest",
+>>>>>>> a880ca2 (design)
     "recharts": "2.15.4",
     "sonner": "^1.7.4",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
+<<<<<<< HEAD
+=======
+    "tsparticles-engine": "latest",
+    "tsparticles-slim": "latest",
+>>>>>>> a880ca2 (design)
     "vaul": "^0.9.9",
     "zod": "3.25.67"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.9",
     "@types/node": "^22",
+<<<<<<< HEAD
     "@types/react": "^19",
+=======
+    "@types/react": "^19.1.9",
+>>>>>>> a880ca2 (design)
     "@types/react-dom": "^19",
     "postcss": "^8.5",
     "tailwindcss": "^4.1.9",
     "tw-animate-css": "1.3.3",
+<<<<<<< HEAD
     "typescript": "^5"
+=======
+    "typescript": "^5.9.2"
+>>>>>>> a880ca2 (design)
   }
 }

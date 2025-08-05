@@ -1,7 +1,10 @@
 import Link from "next/link"
 import { Instagram, Linkedin } from "lucide-react"
 import { XLogo } from "./icons/x-logo"
+<<<<<<< HEAD
 import { LogoIcon } from "./icons/logo-icon"
+=======
+>>>>>>> a880ca2 (design)
 
 export default function Footer() {
   return (
@@ -9,14 +12,23 @@ export default function Footer() {
       <div className="container mx-auto py-12 px-4 md:px-6">
         <div className="flex flex-col items-center gap-8">
           <div className="w-full flex flex-col md:flex-row md:relative items-center justify-between gap-8">
+<<<<<<< HEAD
             <Link href="#hero" className="flex items-center gap-2" prefetch={false}>
               <LogoIcon />
               <span className="font-bold text-white text-xl">Digital Heights</span>
+=======
+            <Link href="/" className="flex items-center" prefetch={false}>
+              <span className="font-light text-xl text-white tracking-widest">kaloyan.gantchev</span>
+>>>>>>> a880ca2 (design)
             </Link>
 
             <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm md:absolute md:left-1/2 md:-translate-x-1/2">
               <Link href="#hero" className="text-gray-400 hover:text-white transition-colors" prefetch={false}>
+<<<<<<< HEAD
                 About Us
+=======
+                About Me
+>>>>>>> a880ca2 (design)
               </Link>
               <Link href="#" className="text-gray-400 hover:text-white transition-colors" prefetch={false}>
                 Imprint
@@ -53,7 +65,11 @@ export default function Footer() {
           <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-purple-500/50 to-transparent" />
 
           <p className="text-sm text-gray-500">
+<<<<<<< HEAD
             &copy; {new Date().getFullYear()} Digital Heights. All rights reserved.
+=======
+            &copy; {new Date().getFullYear()} kaloyan.gantchev. All rights reserved.
+>>>>>>> a880ca2 (design)
           </p>
         </div>
       </div>
