@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Inter } from 'next/font/google'
 import "./globals.css"
 import { cn } from "@/lib/utils"
 import { AnimatedBackground } from "@/components/animated-background"
@@ -8,7 +8,7 @@ import { AnimatedBackground } from "@/components/animated-background"
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
 
 export const metadata: Metadata = {
-  title: "Digital Heights - IT Agency & Consultancy",
+  title: "kaloyan.gantchev - Digital Strategy & Web Development",
   description: "Empowering Businesses to Reach New Digital Heights.",
     generator: 'v0.dev'
 }

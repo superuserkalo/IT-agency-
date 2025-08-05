@@ -4,7 +4,6 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { motion, AnimatePresence } from "framer-motion"
-import { LogoIcon } from "./icons/logo-icon"
 import { AnimatedBurgerIcon } from "./icons/animated-burger-icon"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { ChevronDown } from "lucide-react"
@@ -90,9 +89,8 @@ export default function Header() {
         )}
       >
         <div className="container mx-auto flex h-20 items-center justify-between px-4 md:px-6">
-          <Link href="/" className="flex items-center gap-2" prefetch={false}>
-            <LogoIcon />
-            <span className="font-bold text-xl text-white">Digital Heights</span>
+          <Link href="/" className="flex items-center" prefetch={false}>
+            <span className="font-light text-xl text-white tracking-widest">kaloyan.gantchev</span>
           </Link>
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
             {navLinks.map((link) => (
