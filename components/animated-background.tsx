@@ -13,11 +13,11 @@ export function AnimatedBackground() {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    // Set canvas size with proper device pixel ratio handling for full viewport
+    // Set canvas size with proper device pixel ratio handling for full document
     const setCanvasSize = () => {
       const dpr = window.devicePixelRatio || 1
       const width = window.innerWidth
-      const height = window.innerHeight
+      const height = Math.max(window.innerHeight, document.documentElement.scrollHeight, document.body.scrollHeight)
       
       // Set the internal size (in memory)
       canvas.width = width * dpr
@@ -45,13 +45,16 @@ export function AnimatedBackground() {
       size: number
     }> = []
 
-    // Create particles (reduce count on mobile for performance)
+    // Create particles (heavily reduce count on mobile for performance)
     const isMobile = window.innerWidth < 768
-    const particleCount = isMobile ? 40 : 80
+    const particleCount = isMobile ? 20 : 60
+    
+    // Get document height for particle positioning
+    const getDocumentHeight = () => Math.max(window.innerHeight, document.documentElement.scrollHeight, document.body.scrollHeight)
     
     for (let i = 0; i < particleCount; i++) {
       const x = Math.random() * window.innerWidth
-      const y = Math.random() * window.innerHeight
+      const y = Math.random() * getDocumentHeight()
       const vx = (Math.random() - 0.5) * 0.5
       const vy = (Math.random() - 0.5) * 0.5
       particles.push({
@@ -83,11 +86,23 @@ export function AnimatedBackground() {
     document.addEventListener('mousemove', handleGlobalMouseMove)
     document.addEventListener('mouseleave', handleMouseLeave)
 
-    // Animation loop
-    const animate = () => {
-      // Clear and fill background using window dimensions
+    // Animation loop with mobile throttling
+    let lastFrameTime = 0
+    const targetFPS = isMobile ? 30 : 60
+    const frameInterval = 1000 / targetFPS
+    
+    const animate = (currentTime: number = 0) => {
+      // Throttle frame rate on mobile for better performance
+      if (currentTime - lastFrameTime < frameInterval) {
+        requestAnimationFrame(animate)
+        return
+      }
+      lastFrameTime = currentTime
+      
+      // Clear and fill background using document dimensions
+      const documentHeight = getDocumentHeight()
       ctx.fillStyle = '#000000'
-      ctx.fillRect(0, 0, window.innerWidth, window.innerHeight)
+      ctx.fillRect(0, 0, window.innerWidth, documentHeight)
       
       const mouse = mouseRef.current
       
@@ -114,16 +129,17 @@ export function AnimatedBackground() {
         particle.x += particle.vx
         particle.y += particle.vy
 
-        // Bounce off edges using window dimensions
+        // Bounce off edges using document dimensions
+        const documentHeight = getDocumentHeight()
         if (particle.x <= 0 || particle.x >= window.innerWidth) {
           particle.vx *= -1
           particle.originalVx *= -1
           particle.x = Math.max(0, Math.min(window.innerWidth, particle.x))
         }
-        if (particle.y <= 0 || particle.y >= window.innerHeight) {
+        if (particle.y <= 0 || particle.y >= documentHeight) {
           particle.vy *= -1
           particle.originalVy *= -1
-          particle.y = Math.max(0, Math.min(window.innerHeight, particle.y))
+          particle.y = Math.max(0, Math.min(documentHeight, particle.y))
         }
 
         // Draw particle with subtle glow
@@ -133,21 +149,23 @@ export function AnimatedBackground() {
         ctx.fill()
       })
 
-      // Draw connecting lines
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)'
-      ctx.lineWidth = 1
-      
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x
-          const dy = particles[i].y - particles[j].y
-          const distance = Math.sqrt(dx * dx + dy * dy)
-          
-          if (distance < 150) {
-            ctx.beginPath()
-            ctx.moveTo(particles[i].x, particles[i].y)
-            ctx.lineTo(particles[j].x, particles[j].y)
-            ctx.stroke()
+      // Draw connecting lines (disabled on mobile for performance)
+      if (!isMobile) {
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)'
+        ctx.lineWidth = 1
+        
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x
+            const dy = particles[i].y - particles[j].y
+            const distance = Math.sqrt(dx * dx + dy * dy)
+            
+            if (distance < 120) {
+              ctx.beginPath()
+              ctx.moveTo(particles[i].x, particles[i].y)
+              ctx.lineTo(particles[j].x, particles[j].y)
+              ctx.stroke()
+            }
           }
         }
       }
@@ -160,10 +178,11 @@ export function AnimatedBackground() {
     // Handle resize
     const handleResize = () => {
       setCanvasSize()
-      // Update particle bounds on resize using window dimensions
+      // Update particle bounds on resize using document dimensions
+      const documentHeight = getDocumentHeight()
       particles.forEach(particle => {
         if (particle.x > window.innerWidth) particle.x = window.innerWidth
-        if (particle.y > window.innerHeight) particle.y = window.innerHeight
+        if (particle.y > documentHeight) particle.y = documentHeight
       })
     }
     window.addEventListener('resize', handleResize)
@@ -176,10 +195,10 @@ export function AnimatedBackground() {
   }, [])
 
   return (
-    <div className="fixed inset-0 -z-10 pointer-events-none">
+    <div className="absolute inset-0 -z-10 pointer-events-none min-h-full">
       <canvas
         ref={canvasRef}
-        className="w-full h-full"
+        className="w-full h-full absolute inset-0"
       />
       {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-purple-500/2 via-transparent to-transparent" />

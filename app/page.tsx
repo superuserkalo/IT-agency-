@@ -32,7 +32,8 @@ const containerVariants = {
   onscreen: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.2,
+      staggerChildren: 0.1,
+      duration: 0.6,
     },
   },
 }
@@ -194,7 +195,7 @@ export default function Component() {
 
 
   return (
-    <div className="flex flex-col min-h-screen text-gray-50 relative">
+    <div className="flex flex-col min-h-screen text-gray-50 relative" style={{ position: 'relative' }}>
       {/* Animated particle background */}
       <AnimatedBackground />
       {/* Fixed background gradient that stays in place */}
