@@ -1,20 +1,10 @@
 "use client"
 
-<<<<<<< HEAD
-import { useState, useEffect } from "react"
-import Link from "next/link"
-import { cn } from "@/lib/utils"
-import { motion, AnimatePresence } from "framer-motion"
-import { LogoIcon } from "./icons/logo-icon"
-import { AnimatedBurgerIcon } from "./icons/animated-burger-icon"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-=======
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { motion, AnimatePresence } from "framer-motion"
 import { AnimatedBurgerIcon } from "./icons/animated-burger-icon"
->>>>>>> a880ca2 (design)
 import { ChevronDown } from "lucide-react"
 
 const menuVariants = {
@@ -47,13 +37,9 @@ const navItemVariants = {
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-<<<<<<< HEAD
-  const [language, setLanguage] = useState("DE")
-=======
   const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false)
-  const [isServicesHovered, setIsServicesHovered] = useState(false)
-  const hoverTimeoutRef = useRef(null)
->>>>>>> a880ca2 (design)
+  const [isServicesOpen, setIsServicesOpen] = useState(false)
+  const servicesTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -63,10 +49,6 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-<<<<<<< HEAD
-  const navLinks = [
-    { href: "#services", label: "Services" },
-=======
   // Reset mobile services dropdown when main menu closes
   useEffect(() => {
     if (!isMenuOpen) {
@@ -74,45 +56,11 @@ export default function Header() {
     }
   }, [isMenuOpen])
 
-  // Cleanup timeout on unmount
-  useEffect(() => {
-    return () => {
-      if (hoverTimeoutRef.current) {
-        clearTimeout(hoverTimeoutRef.current)
-      }
-    }
-  }, [])
-
   const navLinks = [
->>>>>>> a880ca2 (design)
     { href: "#faq", label: "FAQ" },
     { href: "/contact", label: "Contact" },
   ]
 
-<<<<<<< HEAD
-  const LanguageSwitcher = () => (
-    <DropdownMenu>
-      <DropdownMenuTrigger className="flex items-center gap-1 text-gray-300 hover:text-white transition-colors text-sm font-medium outline-none">
-        {language}
-        <ChevronDown className="h-4 w-4" />
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="bg-black/50 backdrop-blur-lg border-gray-800 text-gray-200 min-w-[80px]">
-        <DropdownMenuItem
-          onClick={() => setLanguage("DE")}
-          className="cursor-pointer focus:bg-purple-500/20 focus:text-white"
-        >
-          DE
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => setLanguage("EN")}
-          className="cursor-pointer focus:bg-purple-500/20 focus:text-white"
-        >
-          EN
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  )
-=======
   const serviceLinks = [
     { href: "/services/web-development", label: "Web Development" },
     { href: "/services/ecommerce", label: "E-Commerce" },
@@ -120,62 +68,45 @@ export default function Header() {
     { href: "/services/marketing-seo", label: "Marketing & SEO" },
   ]
 
-  const ServicesDropdown = () => {
-    const handleMouseEnter = () => {
-      if (hoverTimeoutRef.current) {
-        clearTimeout(hoverTimeoutRef.current)
-      }
-      setIsServicesHovered(true)
+  // Hover-based Services Dropdown
+  const handleServicesMouseEnter = () => {
+    if (servicesTimeoutRef.current) {
+      clearTimeout(servicesTimeoutRef.current)
     }
-    
-    const handleMouseLeave = () => {
-      hoverTimeoutRef.current = setTimeout(() => {
-        setIsServicesHovered(false)
-      }, 150)
-    }
-
-    return (
-      <div 
-        className="relative"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
-        <span className="text-gray-300 hover:text-white transition-colors text-sm font-medium cursor-pointer relative group">
-          Services
-          <span className="absolute bottom-[-4px] left-0 w-0 h-0.5 bg-purple-500 group-hover:w-full transition-all duration-300" />
-        </span>
-        
-        <AnimatePresence>
-          {isServicesHovered && (
-            <>
-              {/* Bridge element to prevent hover gaps */}
-              <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-[200px] h-8 z-40" />
-              
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 10 }}
-                transition={{ duration: 0.2 }}
-                className="absolute top-full left-1/2 transform -translate-x-1/2 mt-8 bg-black/50 backdrop-blur-lg border border-gray-800 rounded-lg shadow-lg min-w-[200px] py-1 z-50"
-              >
-                {serviceLinks.map((service, index) => (
-                  <Link
-                    key={service.href}
-                    href={service.href}
-                    className="block px-4 py-2 mx-1 my-0.5 text-gray-200 hover:bg-purple-500/20 hover:text-white transition-colors rounded-md cursor-pointer"
-                  >
-                    {service.label}
-                  </Link>
-                ))}
-              </motion.div>
-            </>
-          )}
-        </AnimatePresence>
-      </div>
-    )
+    setIsServicesOpen(true)
   }
 
->>>>>>> a880ca2 (design)
+  const handleServicesMouseLeave = () => {
+    servicesTimeoutRef.current = setTimeout(() => {
+      setIsServicesOpen(false)
+    }, 150)
+  }
+
+  const ServicesDropdown = () => (
+    <div className="relative" onMouseEnter={handleServicesMouseEnter} onMouseLeave={handleServicesMouseLeave}>
+      <button className="text-gray-300 hover:text-white transition-colors text-sm font-medium cursor-pointer relative group">
+        Services
+        <span className="absolute bottom-[-4px] left-0 w-0 h-0.5 bg-purple-500 group-hover:w-full transition-all duration-300" />
+      </button>
+      
+      {isServicesOpen && (
+        <div className={cn(
+          "absolute top-full left-1/2 -translate-x-1/2 mt-6 border border-gray-800 text-gray-200 rounded-md shadow-lg min-w-[200px] py-2 z-50 transition-all duration-300",
+          isScrolled ? "bg-black/80 backdrop-blur-sm" : "bg-black/90 backdrop-blur-lg"
+        )}>
+          {serviceLinks.map((service) => (
+            <Link
+              key={service.href}
+              href={service.href}
+              className="block mx-2 px-3 py-2 text-gray-200 hover:bg-purple-500/20 hover:text-white transition-colors cursor-pointer rounded-md"
+            >
+              {service.label}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  )
 
   return (
     <>
@@ -185,47 +116,33 @@ export default function Header() {
         transition={{ duration: 0.5 }}
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-          isScrolled ? "bg-black/50 backdrop-blur-lg border-b border-gray-800" : "bg-transparent",
+          isScrolled ? "bg-black/80 backdrop-blur-sm" : "bg-transparent",
         )}
       >
-        <div className="container mx-auto flex h-20 items-center justify-between px-4 md:px-6">
-<<<<<<< HEAD
-          <Link href="/" className="flex items-center gap-2" prefetch={false}>
-            <LogoIcon />
-            <span className="font-bold text-xl text-white">Digital Heights</span>
+        <div className="container mx-auto flex h-16 sm:h-20 items-center justify-between px-4 md:px-6">
+          <Link href="/" className="flex items-center cursor-pointer group" prefetch={false}>
+            <span className="font-light text-lg sm:text-xl text-white tracking-widest hover:text-white transition-colors duration-300 relative">
+              kaloyan.gantchev
+              <span className="absolute bottom-[-4px] left-0 w-0 h-0.5 bg-purple-500 group-hover:w-full transition-all duration-300" />
+            </span>
           </Link>
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
-=======
-          <Link href="/" className="flex items-center cursor-pointer" prefetch={false}>
-            <span className="font-light text-xl text-white tracking-widest">kaloyan.gantchev</span>
-          </Link>
+          
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium">
             <ServicesDropdown />
->>>>>>> a880ca2 (design)
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-<<<<<<< HEAD
-                className="text-gray-300 hover:text-white transition-colors relative group"
-=======
-                className="text-gray-300 hover:text-white transition-colors relative group cursor-pointer"
->>>>>>> a880ca2 (design)
+                className="text-gray-300 hover:text-white transition-colors duration-300 relative group cursor-pointer"
                 prefetch={false}
               >
                 {link.label}
                 <span className="absolute bottom-[-4px] left-0 w-0 h-0.5 bg-purple-500 group-hover:w-full transition-all duration-300" />
               </Link>
             ))}
-<<<<<<< HEAD
-            <LanguageSwitcher />
           </nav>
+          
           <div className="md:hidden flex items-center gap-4">
-            <LanguageSwitcher />
-=======
-          </nav>
-          <div className="md:hidden flex items-center gap-4">
->>>>>>> a880ca2 (design)
             <motion.button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               whileHover={{ scale: 1.1 }}
@@ -246,7 +163,7 @@ export default function Header() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-30"
+              className="fixed inset-0 z-30 bg-black/20 backdrop-blur-sm"
               onClick={() => setIsMenuOpen(false)}
             />
             <motion.div
@@ -254,7 +171,7 @@ export default function Header() {
               initial="hidden"
               animate="visible"
               exit="hidden"
-              className="fixed top-0 right-0 h-full w-[80vw] max-w-sm bg-black/40 backdrop-blur-xl z-40"
+              className="fixed top-0 right-0 h-full w-[85vw] max-w-sm bg-black/70 backdrop-blur-xl z-40 border-l border-gray-700/50 safe-area-inset-right"
             >
               <motion.nav
                 variants={navContainerVariants}
@@ -263,13 +180,11 @@ export default function Header() {
                 exit="hidden"
                 className="flex flex-col items-center justify-center h-full gap-8"
               >
-<<<<<<< HEAD
-=======
-                {/* Services Section */}
+                {/* Enhanced Mobile Services Section */}
                 <motion.div variants={navItemVariants} className="text-center">
                   <button
                     onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
-                    className="flex items-center gap-2 py-4 text-3xl font-semibold transition-colors hover:text-purple-400"
+                    className="flex items-center gap-2 py-4 text-2xl sm:text-3xl font-semibold transition-colors hover:text-purple-400 active:text-purple-500 cursor-pointer touch-manipulation"
                   >
                     Services
                     <motion.div
@@ -297,7 +212,7 @@ export default function Header() {
                                 setIsMenuOpen(false)
                                 setIsMobileServicesOpen(false)
                               }}
-                              className="py-2 text-xl text-gray-300 hover:text-purple-400 transition-colors cursor-pointer"
+                              className="py-2 text-lg sm:text-xl text-gray-300 hover:text-purple-400 active:text-purple-500 transition-colors cursor-pointer touch-manipulation"
                             >
                               {service.label}
                             </Link>
@@ -309,17 +224,12 @@ export default function Header() {
                 </motion.div>
 
                 {/* Other Nav Links */}
->>>>>>> a880ca2 (design)
                 {navLinks.map((link) => (
                   <motion.div key={link.href} variants={navItemVariants}>
                     <Link
                       href={link.href}
                       onClick={() => setIsMenuOpen(false)}
-<<<<<<< HEAD
-                      className="inline-block w-full py-4 text-3xl font-semibold transition-colors hover:text-purple-400"
-=======
-                      className="inline-block w-full py-4 text-3xl font-semibold transition-colors hover:text-purple-400 cursor-pointer"
->>>>>>> a880ca2 (design)
+                      className="inline-block w-full py-4 text-2xl sm:text-3xl font-semibold transition-colors hover:text-purple-400 active:text-purple-500 cursor-pointer touch-manipulation"
                       prefetch={false}
                     >
                       {link.label}

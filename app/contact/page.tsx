@@ -1,19 +1,16 @@
 "use client"
 
-import { useState } from "react"
-import { motion } from "framer-motion"
-import { Mail, Phone, MapPin } from "lucide-react"
+import { useState, useCallback } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { Mail, Phone, MapPin, CheckCircle, AlertCircle, Loader2 } from "lucide-react"
 import Link from "next/link"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
-<<<<<<< HEAD
-=======
 import { AnimatedBackground } from "@/components/animated-background"
->>>>>>> a880ca2 (design)
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
+import { Checkbox } from "@/components/ui/checkbox"
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -41,30 +38,138 @@ const itemVariants = {
   },
 }
 
+// ENHANCED form validation types
+interface FormData {
+  fullname: string
+  email: string
+  company: string
+  phone: string
+  message: string
+}
+
+interface FormErrors {
+  fullname?: string
+  email?: string
+  phone?: string
+  message?: string
+}
+
+// Advanced email validation regex
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+
+// Phone validation regex (supports international formats)
+const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/
+
 export default function ContactPage() {
   const [agreed, setAgreed] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  
+  // ENHANCED form state with real-time validation
+  const [formData, setFormData] = useState<FormData>({
+    fullname: '',
+    email: '',
+    company: '',
+    phone: '',
+    message: ''
+  })
+  
+  const [errors, setErrors] = useState<FormErrors>({})
 
+  // Simple validation only on submit
+  const validateField = (name: keyof FormData, value: string): string | undefined => {
+    switch (name) {
+      case 'fullname':
+        return !value.trim() ? 'Full name is required' : undefined
+      case 'email':
+        return !value.trim() ? 'Email is required' : !emailRegex.test(value) ? 'Invalid email' : undefined
+      case 'phone':
+        return !value.trim() ? 'Phone number is required' : undefined
+      case 'message':
+        return !value.trim() ? 'Message is required' : undefined
+      default:
+        return undefined
+    }
+  }
+  
+  // Memoized input handlers to prevent re-renders
+  const handleFullnameChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData(prev => ({ ...prev, fullname: e.target.value }))
+  }, [])
+
+  const handleEmailChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData(prev => ({ ...prev, email: e.target.value }))
+  }, [])
+
+  const handleCompanyChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData(prev => ({ ...prev, company: e.target.value }))
+  }, [])
+
+  const handlePhoneChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/[^+\d]/g, '')
+    setFormData(prev => ({ ...prev, phone: value }))
+  }, [])
+
+  const handleMessageChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value.slice(0, 500) // Limit to 500 characters
+    setFormData(prev => ({ ...prev, message: value }))
+  }, [])
+  
+  // ENHANCED form submission with validation
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    // Validate form
+    
+    // Validate all fields
+    const newErrors: FormErrors = {}
+    Object.entries(formData).forEach(([key, value]) => {
+      const error = validateField(key as keyof FormData, value)
+      if (error) newErrors[key as keyof FormErrors] = error
+    })
+    
+    setErrors(newErrors)
+    
+    // Check if form is valid
+    if (Object.keys(newErrors).length > 0 || !agreed) {
+      return
+    }
+    
+    // Simulate form submission
+    setIsSubmitting(true)
+    setSubmitStatus('idle')
+    
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 2000))
+      setSubmitStatus('success')
+      
+      // Reset form after successful submission
+      setTimeout(() => {
+        setFormData({ fullname: '', email: '', company: '', phone: '', message: '' })
+        setErrors({})
+        setAgreed(false)
+        setSubmitStatus('idle')
+      }, 3000)
+    } catch (error) {
+      setSubmitStatus('error')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+  
+  
   return (
-<<<<<<< HEAD
-    <div className="flex flex-col min-h-[100dvh] bg-black text-gray-50">
-      <div className="fixed top-0 left-0 w-full h-full bg-black bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] -z-10" />
-      <Header />
-      <main className="flex-1 flex flex-col justify-center pt-20">
-        <motion.section
-          id="contact"
-          className="w-full py-12"
-=======
-    <div className="flex flex-col text-gray-50 relative">
-      {/* Animated particle background */}
+    <div className="flex flex-col min-h-[100dvh] text-gray-50 relative">
+      {/* ENHANCED Animated particle background */}
       <AnimatedBackground />
-      {/* Fixed background gradient that stays in place */}
+      {/* Dynamic gradient background */}
       <div className="absolute inset-0 bg-gradient-to-b from-purple-500/10 via-transparent to-transparent z-0" />
       <Header />
       <main className="flex-1 flex flex-col justify-center pt-20 relative z-10">
         <motion.section
           id="contact"
-          className="w-full py-14 md:py-20"
->>>>>>> a880ca2 (design)
+          className="w-full py-12"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -72,25 +177,17 @@ export default function ContactPage() {
           <div className="container px-4 md:px-6">
             <div className="grid gap-12 lg:grid-cols-2 lg:gap-24">
               <motion.div className="space-y-6 flex flex-col justify-center" custom="left" variants={itemVariants}>
-<<<<<<< HEAD
-                <div className="inline-block rounded-lg bg-gray-800 px-3 py-1 text-sm self-start">Contact Us</div>
-                <h2 className="text-4xl font-bold tracking-tight sm:text-5xl bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-400">
-                  Let's Build Together
-                </h2>
-                <p className="max-w-[600px] text-gray-300 md:text-xl/relaxed">
-=======
                 <h2 className="text-4xl font-bold tracking-tight sm:text-5xl bg-clip-text text-transparent bg-gradient-to-b from-white to-gray-400 leading-tight">
                   Let's Build Together
                 </h2>
-                <p className="max-w-[600px] text-gray-300 md:text-lg/relaxed">
->>>>>>> a880ca2 (design)
+                <p className="max-w-[600px] text-gray-300 md:text-xl/relaxed">
                   Have a project in mind or just want to learn more? We'd love to hear from you. Fill out the form, and
                   we'll get back to you as soon as possible.
                 </p>
                 <div className="space-y-3 pt-2">
                   <p className="flex items-center gap-3 text-gray-300">
                     <Mail className="h-5 w-5 text-purple-400" />
-                    contactpartner@k2integris.com
+hello@kaloyan.gantchev.com
                   </p>
                   <p className="flex items-center gap-3 text-gray-300">
                     <Phone className="h-5 w-5 text-purple-400" />
@@ -98,128 +195,170 @@ export default function ContactPage() {
                   </p>
                   <p className="flex items-center gap-3 text-gray-300">
                     <MapPin className="h-5 w-5 text-purple-400" />
-                    os. Szymony 7, 34-500 Zakopane, Poland
+                    Stephansplatz 1, 1010 Wien, Austria
                   </p>
                 </div>
               </motion.div>
-<<<<<<< HEAD
               <motion.div custom="right" variants={itemVariants}>
-                <div className="p-8 rounded-xl border border-white/10 bg-black/20 backdrop-blur-sm">
-                  <form
-                    className="space-y-4"
-=======
-              <motion.div custom="right" variants={itemVariants} className="flex justify-center">
-                <div className="w-full ml-6 lg:ml-12">
-                  <div className="p-8 md:p-10 rounded-xl border border-white/10 bg-black/20 backdrop-blur-sm">
-                  <form
-                    className="space-y-5"
->>>>>>> a880ca2 (design)
-                    onSubmit={(e) => {
-                      e.preventDefault()
-                      alert("Form submitted! (Note: This is a demo and does not send data.)")
-                    }}
-                  >
-<<<<<<< HEAD
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-=======
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
->>>>>>> a880ca2 (design)
-                      <Input
-                        placeholder="Your Fullname"
-                        name="fullname"
-                        required
-<<<<<<< HEAD
-                        className="bg-black/20 border-white/10 focus:border-purple-500 placeholder:text-gray-500"
-=======
-                        className="bg-black/20 border-white/10 focus:border-purple-500 placeholder:text-gray-500 h-12"
->>>>>>> a880ca2 (design)
-                      />
-                      <Input
-                        placeholder="Your E-Mail"
-                        name="email"
-                        type="email"
-                        required
-<<<<<<< HEAD
-                        className="bg-black/20 border-white/10 focus:border-purple-500 placeholder:text-gray-500"
-                      />
-                    </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <Input
-                        placeholder="Your Company (Optional)"
-                        name="company"
-                        className="bg-black/20 border-white/10 focus:border-purple-500 placeholder:text-gray-500"
-=======
-                        className="bg-black/20 border-white/10 focus:border-purple-500 placeholder:text-gray-500 h-12"
-                      />
-                    </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                      <Input
-                        placeholder="Your Company (Optional)"
-                        name="company"
-                        className="bg-black/20 border-white/10 focus:border-purple-500 placeholder:text-gray-500 h-12"
->>>>>>> a880ca2 (design)
-                      />
-                      <Input
-                        placeholder="Your Phone"
-                        name="phone"
-                        type="tel"
-                        required
-<<<<<<< HEAD
-                        className="bg-black/20 border-white/10 focus:border-purple-500 placeholder:text-gray-500"
-=======
-                        className="bg-black/20 border-white/10 focus:border-purple-500 placeholder:text-gray-500 h-12"
->>>>>>> a880ca2 (design)
-                      />
-                    </div>
-                    <Textarea
-                      placeholder="Your Message"
-                      name="message"
-                      required
-<<<<<<< HEAD
-                      rows={5}
-                      className="bg-black/20 border-white/10 focus:border-purple-500 placeholder:text-gray-500"
-                    />
+                <div className="p-8 rounded-xl border border-white/10 bg-black/20 backdrop-blur-sm relative overflow-hidden">
+                  {/* Premium gradient border effect */}
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-purple-500/10 via-transparent to-blue-500/10 pointer-events-none" />
+                  
+                  <div className="relative z-10">
+                    {/* ENHANCED success/error status display */}
+                    <AnimatePresence>
+                      {submitStatus === 'success' && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -20 }}
+                          className="mb-6 p-4 rounded-lg bg-green-500/10 border border-green-500/30 flex items-center gap-3"
+                        >
+                          <CheckCircle className="w-5 h-5 text-green-400" />
+                          <div>
+                            <p className="text-green-400 font-medium">Message sent successfully!</p>
+                            <p className="text-green-300 text-sm">We'll get back to you within 24 hours.</p>
+                          </div>
+                        </motion.div>
+                      )}
+                      {submitStatus === 'error' && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -20 }}
+                          className="mb-6 p-4 rounded-lg bg-red-500/10 border border-red-500/30 flex items-center gap-3"
+                        >
+                          <AlertCircle className="w-5 h-5 text-red-400" />
+                          <div>
+                            <p className="text-red-400 font-medium">Failed to send message</p>
+                            <p className="text-red-300 text-sm">Please try again or contact us directly.</p>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                    
+                    <form className="space-y-4" onSubmit={handleSubmit}>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                          <Input
+                            name="fullname"
+                            value={formData.fullname}
+                            onChange={handleFullnameChange}
+                            placeholder="Your Name"
+                            className="bg-black/20 border-white/10 focus:border-purple-500 placeholder:text-gray-500 text-gray-400"
+                            style={{
+                              WebkitBoxShadow: '0 0 0 1000px rgba(0, 0, 0, 0.8) inset',
+                              WebkitTextFillColor: '#9ca3af'
+                            }}
+                          />
+                          {errors.fullname && (
+                            <p className="text-red-400 text-sm mt-1">{errors.fullname}</p>
+                          )}
+                        </div>
+                        <div>
+                          <Input
+                            name="email"
+                            type="email"
+                            value={formData.email}
+                            onChange={handleEmailChange}
+                            placeholder="youremail@example.com"
+                            className="bg-black/20 border-white/10 focus:border-purple-500 placeholder:text-gray-500 text-gray-400"
+                            style={{
+                              WebkitBoxShadow: '0 0 0 1000px rgba(0, 0, 0, 0.8) inset',
+                              WebkitTextFillColor: '#9ca3af'
+                            }}
+                          />
+                          {errors.email && (
+                            <p className="text-red-400 text-sm mt-1">{errors.email}</p>
+                          )}
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <Input
+                          name="company"
+                          value={formData.company}
+                          onChange={handleCompanyChange}
+                          placeholder="Your Company (Optional)"
+                          className="bg-black/20 border-white/10 focus:border-purple-500 placeholder:text-gray-500 text-gray-400"
+                          style={{
+                            WebkitBoxShadow: '0 0 0 1000px rgba(0, 0, 0, 0.8) inset',
+                            WebkitTextFillColor: '#9ca3af'
+                          }}
+                        />
+                        <div>
+                          <Input
+                            name="phone"
+                            type="tel"
+                            value={formData.phone}
+                            onChange={handlePhoneChange}
+                            placeholder="+43 1 234 5678"
+                            className="bg-black/20 border-white/10 focus:border-purple-500 placeholder:text-gray-500 text-gray-400"
+                            style={{
+                              WebkitBoxShadow: '0 0 0 1000px rgba(0, 0, 0, 0.8) inset',
+                              WebkitTextFillColor: '#9ca3af'
+                            }}
+                          />
+                          {errors.phone && (
+                            <p className="text-red-400 text-sm mt-1">{errors.phone}</p>
+                          )}
+                        </div>
+                      </div>
+                      <div>
+                        <Textarea
+                          name="message"
+                          value={formData.message}
+                          onChange={handleMessageChange}
+                          placeholder="Describe your project, goals, and requirements. How can we help you achieve your digital objectives?"
+                          rows={5}
+                          className="bg-black/20 border-white/10 focus:border-purple-500 placeholder:text-gray-500 text-gray-400 resize-y"
+                        />
+                        <div className="flex justify-between items-center mt-1">
+                          {errors.message && (
+                            <p className="text-red-400 text-sm">{errors.message}</p>
+                          )}
+                          <p className="text-gray-500 text-sm ml-auto">
+                            {formData.message.length}/500
+                          </p>
+                        </div>
+                      </div>
                     <div className="flex items-center space-x-3 pt-2">
-=======
-                      rows={6}
-                      className="bg-black/20 border-white/10 focus:border-purple-500 placeholder:text-gray-500"
-                    />
-                    <div className="flex items-center space-x-3 pt-4">
->>>>>>> a880ca2 (design)
                       <Checkbox
                         id="privacy"
                         checked={agreed}
-                        onCheckedChange={(checked) => setAgreed(Boolean(checked))}
+                        onCheckedChange={setAgreed}
                         className="border-gray-600 data-[state=checked]:bg-purple-500 data-[state=checked]:border-purple-500"
                       />
                       <Label htmlFor="privacy" className="text-sm font-normal text-gray-400">
                         I agree to the{" "}
-<<<<<<< HEAD
                         <Link href="/privacy" className="underline hover:text-purple-400 transition-colors">
-=======
-                        <Link href="/privacy" className="underline hover:text-purple-400 transition-colors cursor-pointer">
->>>>>>> a880ca2 (design)
                           Privacy Policy
                         </Link>
                         .
                       </Label>
                     </div>
-                    <button
-                      type="submit"
-                      disabled={!agreed}
-<<<<<<< HEAD
-                      className="w-full rounded-lg border border-purple-500/30 bg-purple-500/10 px-8 py-3 font-semibold text-white transition-all duration-300 hover:bg-purple-500/20 hover:shadow-lg hover:shadow-purple-500/20 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-purple-500/10 disabled:hover:shadow-none"
-=======
-                      className="w-full rounded-lg border border-purple-500/30 bg-purple-500/10 px-8 py-3 font-semibold text-white transition-all duration-300 hover:bg-purple-500/20 hover:shadow-lg hover:shadow-purple-500/20 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-purple-500/10 disabled:hover:shadow-none cursor-pointer"
->>>>>>> a880ca2 (design)
-                    >
-                      Send Message
-                    </button>
-                  </form>
-<<<<<<< HEAD
-=======
+                      <div className="pt-2">
+                        <button
+                          type="submit"
+                          disabled={!agreed || isSubmitting || Object.keys(errors).some(key => errors[key as keyof FormErrors])}
+                          className="w-full rounded-lg border border-purple-500/30 bg-purple-500/10 px-8 py-3 font-semibold text-white transition-all duration-300 hover:bg-purple-500/20 hover:shadow-lg hover:shadow-purple-500/20 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-purple-500/10 disabled:hover:shadow-none"
+                        >
+                          {isSubmitting ? (
+                            <>
+                              <Loader2 className="w-4 h-4 animate-spin inline mr-2" />
+                              Sending Message...
+                            </>
+                          ) : submitStatus === 'success' ? (
+                            <>
+                              <CheckCircle className="w-4 h-4 inline mr-2" />
+                              Message Sent!
+                            </>
+                          ) : (
+                            'Send Message'
+                          )}
+                        </button>
+                      </div>
+                    </form>
                   </div>
->>>>>>> a880ca2 (design)
                 </div>
               </motion.div>
             </div>
@@ -229,8 +368,4 @@ export default function ContactPage() {
       <Footer />
     </div>
   )
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> a880ca2 (design)

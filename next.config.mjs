@@ -11,8 +11,5 @@ const nextConfig = {
   },
 }
 
-<<<<<<< HEAD
 export default nextConfig
-=======
-export default nextConfig;
->>>>>>> a880ca2 (design)
+
