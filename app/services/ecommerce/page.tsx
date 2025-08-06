@@ -112,7 +112,7 @@ export default function EcommercePage() {
               <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
               Back to Services
             </Link>
-            <div className="flex items-center justify-center gap-4 mb-6">
+            <div className="flex flex-col sm:flex-row items-center sm:justify-center gap-2 sm:gap-4 mb-6">
               <div className="p-3 rounded-full bg-purple-500/20">
                 <ShoppingCart className="w-8 h-8 text-purple-400" />
               </div>

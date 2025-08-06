@@ -273,7 +273,7 @@ export default function Component() {
           className="w-full pt-8 md:pt-16 pb-12 md:pb-24 lg:pb-32"
           initial="offscreen"
           whileInView="onscreen"
-          viewport={{ once: true, amount: 0.15 }}
+          viewport={{ once: true, amount: 0.15, margin: "0px 0px -10% 0px" }}
           variants={containerVariants}
         >
           <div className="w-full max-w-5xl mx-auto px-4 md:px-6">
@@ -339,7 +339,7 @@ export default function Component() {
           className="w-full py-12 md:py-24 lg:py-32"
           initial="offscreen"
           whileInView="onscreen"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.1, margin: "0px 0px -20% 0px" }}
         >
           <div className="container mx-auto px-4 md:px-6">
             <motion.div
@@ -429,7 +429,7 @@ export default function Component() {
           className="w-full py-12 md:py-24 lg:py-32"
           initial="offscreen"
           whileInView="onscreen"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.1, margin: "0px 0px -20% 0px" }}
           variants={cardVariants}
         >
           <div className="container mx-auto px-4 md:px-6">

@@ -184,17 +184,17 @@ export default function Header() {
               initial="hidden"
               animate="visible"
               exit="hidden"
-              className="fixed top-0 right-0 h-full w-[85vw] max-w-sm bg-black/70 backdrop-blur-xl z-40 border-l border-gray-700/50 safe-area-inset-right"
+              className="fixed top-0 right-0 h-full w-[85vw] max-w-sm bg-black/20 backdrop-blur-2xl z-40 border-l border-gray-700/30 safe-area-inset-right"
             >
               <motion.nav
                 variants={navContainerVariants}
                 initial="hidden"
                 animate="visible"
                 exit="hidden"
-                className="flex flex-col items-center justify-center h-full gap-8"
+                className="flex flex-col items-start justify-start h-full gap-8 pt-20 px-6"
               >
                 {/* Enhanced Mobile Services Section */}
-                <motion.div variants={navItemVariants} className="text-center">
+                <motion.div variants={navItemVariants} className="w-full">
                   <button
                     onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
                     className="flex items-center gap-2 py-4 text-2xl sm:text-3xl font-semibold transition-colors hover:text-purple-400 active:text-purple-500 cursor-pointer touch-manipulation"
@@ -225,7 +225,7 @@ export default function Header() {
                                 setIsMenuOpen(false)
                                 setIsMobileServicesOpen(false)
                               }}
-                              className="py-2 text-lg sm:text-xl text-gray-300 hover:text-purple-400 active:text-purple-500 transition-colors cursor-pointer touch-manipulation"
+                              className="py-2 text-lg sm:text-xl text-gray-300 hover:text-purple-400 active:text-purple-500 transition-colors cursor-pointer touch-manipulation text-left w-full"
                             >
                               {service.label}
                             </Link>
@@ -238,11 +238,11 @@ export default function Header() {
 
                 {/* Other Nav Links */}
                 {navLinks.map((link) => (
-                  <motion.div key={link.href} variants={navItemVariants}>
+                  <motion.div key={link.href} variants={navItemVariants} className="w-full">
                     <Link
                       href={link.href}
                       onClick={link.onClick || (() => setIsMenuOpen(false))}
-                      className="inline-block w-full py-4 text-2xl sm:text-3xl font-semibold transition-colors hover:text-purple-400 active:text-purple-500 cursor-pointer touch-manipulation"
+                      className="inline-block w-full py-4 text-2xl sm:text-3xl font-semibold transition-colors hover:text-purple-400 active:text-purple-500 cursor-pointer touch-manipulation text-left"
                       prefetch={false}
                     >
                       {link.label}
