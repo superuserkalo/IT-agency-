@@ -10,11 +10,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { AnimatedBackground } from "@/components/animated-background"
 
-const tools = [
-  "Google Analytics", "Google Search Console", "SEMrush", "Ahrefs", 
-  "Moz", "Google Ads", "Facebook Ads", "LinkedIn Ads", "Mailchimp", 
-  "HubSpot", "Hootsuite", "Buffer", "Canva", "WordPress", "Webflow"
-]
 
 const features = [
   {
@@ -49,28 +44,6 @@ const features = [
   }
 ]
 
-const services = [
-  {
-    title: "SEO Optimization",
-    description: "Complete search engine optimization to improve organic rankings and drive quality traffic",
-    features: ["Keyword Research", "On-Page SEO", "Technical SEO", "Link Building"]
-  },
-  {
-    title: "Digital Advertising",
-    description: "Targeted advertising campaigns across Google, Facebook, LinkedIn, and other platforms",
-    features: ["Campaign Setup", "Ad Copy Creation", "Landing Pages", "Conversion Tracking"]
-  },
-  {
-    title: "Social Media Management",
-    description: "Full-service social media management to build your brand and engage your audience",
-    features: ["Content Creation", "Community Management", "Social Advertising", "Performance Analysis"]
-  },
-  {
-    title: "Content Strategy",
-    description: "Strategic content planning and creation to attract and convert your ideal customers",
-    features: ["Content Planning", "Blog Writing", "Video Content", "Email Marketing"]
-  }
-]
 
 
 const process = [
@@ -118,7 +91,7 @@ export default function MarketingSEOPage() {
             className="text-center mb-16"
           >
             <Link
-              href="/"
+              href="/#services"
               className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors mb-8 group"
             >
               <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
@@ -149,47 +122,6 @@ export default function MarketingSEOPage() {
       </section>
 
 
-      {/* Tools Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4 md:px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Marketing Tools & Platforms
-            </h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">
-              I use industry-leading tools and platforms to deliver data-driven marketing results and insights.
-            </p>
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="flex flex-wrap justify-center gap-3"
-          >
-            {tools.map((tool, index) => (
-              <motion.div
-                key={tool}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.05 }}
-                viewport={{ once: true }}
-              >
-                <Badge variant="outline" className="bg-black/40 border-purple-500/30 text-purple-300 hover:bg-purple-500/10 px-4 py-2 text-sm">
-                  {tool}
-                </Badge>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
 
       {/* Features Section */}
       <section className="py-16">
@@ -238,58 +170,6 @@ export default function MarketingSEOPage() {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4 md:px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Digital Marketing Services
-            </h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">
-              From SEO to social media marketing, I provide comprehensive digital marketing solutions to grow your business online.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {services.map((service, index) => (
-              <motion.div
-                key={service.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <Card className="bg-black/40 border-gray-800 hover:border-purple-500/50 transition-all duration-300 h-full">
-                  <CardHeader>
-                    <CardTitle className="text-xl text-white mb-2">
-                      {service.title}
-                    </CardTitle>
-                    <CardDescription className="text-gray-400 mb-6">
-                      {service.description}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2">
-                      {service.features.map((feature, featureIndex) => (
-                        <li key={featureIndex} className="flex items-center gap-2 text-gray-300">
-                          <CheckCircle className="w-4 h-4 text-green-400 flex-shrink-0" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
 
       {/* Process Section */}

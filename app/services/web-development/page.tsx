@@ -10,12 +10,6 @@ import { AnimatedGradientButton } from "@/components/ui/animated-gradient-button
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 
-const technologies = [
-  "React", "Next.js", "TypeScript", "JavaScript", "HTML5", "CSS3", 
-  "Tailwind CSS", "Node.js", "Express", "MongoDB", "PostgreSQL", 
-  "Firebase", "Vercel", "AWS", "Docker", "Git"
-]
-
 const features = [
   {
     icon: Smartphone,
@@ -46,29 +40,6 @@ const features = [
     icon: Code,
     title: "Clean Code",
     description: "Well-structured, maintainable code following industry best practices."
-  }
-]
-
-const services = [
-  {
-    title: "Custom Website Development",
-    description: "Tailored websites built from scratch to meet your specific business requirements",
-    features: ["Custom Design", "Content Management", "Performance Optimization", "Browser Compatibility"]
-  },
-  {
-    title: "Single Page Applications (SPA)",
-    description: "Dynamic, fast-loading applications for enhanced user experience",
-    features: ["React/Next.js", "Real-time Updates", "Smooth Navigation", "API Integration"]
-  },
-  {
-    title: "Progressive Web Apps (PWA)",
-    description: "Web applications that work like native mobile apps",
-    features: ["Offline Functionality", "Push Notifications", "App-like Experience", "Cross-platform"]
-  },
-  {
-    title: "Website Redesign & Migration",
-    description: "Modernize your existing website with updated design and technology",
-    features: ["Modern UI/UX", "Technology Upgrade", "Data Migration", "SEO Preservation"]
   }
 ]
 
@@ -115,7 +86,7 @@ export default function WebDevelopmentPage() {
             className="text-center mb-16"
           >
             <Link
-              href="/"
+              href="/#services"
               className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors mb-8 group"
             >
               <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
@@ -143,47 +114,6 @@ export default function WebDevelopmentPage() {
         </div>
       </section>
 
-      {/* Technologies Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4 md:px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Technologies I Use
-            </h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">
-              I work with modern, industry-standard technologies to ensure your website is fast, secure, and scalable.
-            </p>
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="flex flex-wrap justify-center gap-3 mb-16"
-          >
-            {technologies.map((tech, index) => (
-              <motion.div
-                key={tech}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.05 }}
-                viewport={{ once: true }}
-              >
-                <Badge variant="outline" className="bg-black/40 border-purple-500/30 text-purple-300 hover:bg-purple-500/10 px-4 py-2 text-sm">
-                  {tech}
-                </Badge>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
 
       {/* Features Section */}
       <section className="py-16">
@@ -231,58 +161,6 @@ export default function WebDevelopmentPage() {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4 md:px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Web Development Services
-            </h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">
-              Comprehensive web development solutions tailored to your specific business needs and goals.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {services.map((service, index) => (
-              <motion.div
-                key={service.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <Card className="bg-black/40 border-gray-800 hover:border-purple-500/50 transition-all duration-300 h-full">
-                  <CardHeader>
-                    <CardTitle className="text-xl text-white mb-2">
-                      {service.title}
-                    </CardTitle>
-                    <CardDescription className="text-gray-400 mb-6">
-                      {service.description}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2">
-                      {service.features.map((feature, featureIndex) => (
-                        <li key={featureIndex} className="flex items-center gap-2 text-gray-300">
-                          <CheckCircle className="w-4 h-4 text-green-400 flex-shrink-0" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Process Section */}
       <section className="py-16">

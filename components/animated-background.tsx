@@ -168,7 +168,7 @@ export function AnimatedBackground() {
         className="w-full h-full"
       />
       {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-purple-500/5 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-purple-500/2 via-transparent to-transparent" />
     </div>
   )
 }

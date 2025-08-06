@@ -10,11 +10,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { AnimatedBackground } from "@/components/animated-background"
 
-const technologies = [
-  "React", "Next.js", "Node.js", "Python", "PostgreSQL", "MongoDB", 
-  "Redis", "Docker", "AWS", "Google Cloud", "Firebase", "Supabase",
-  "Prisma", "GraphQL", "REST APIs", "Microservices"
-]
 
 const features = [
   {
@@ -49,61 +44,7 @@ const features = [
   }
 ]
 
-const services = [
-  {
-    title: "Custom Business Software",
-    description: "Tailored applications designed specifically for your business processes and requirements",
-    features: ["Custom Workflows", "Business Logic", "Integration APIs", "User Training"]
-  },
-  {
-    title: "CRM & ERP Systems",
-    description: "Customer relationship management and enterprise resource planning solutions",
-    features: ["Contact Management", "Sales Pipeline", "Inventory Tracking", "Financial Reports"]
-  },
-  {
-    title: "Document Management",
-    description: "Digital document storage, organization, and workflow management systems",
-    features: ["File Storage", "Version Control", "Access Control", "Search & Filter"]
-  },
-  {
-    title: "Project Management Tools",
-    description: "Custom project management applications with task tracking and team collaboration",
-    features: ["Task Management", "Time Tracking", "Team Collaboration", "Progress Reports"]
-  }
-]
 
-const industries = [
-  {
-    title: "Healthcare",
-    description: "Patient management systems, appointment scheduling, and medical record keeping.",
-    icon: "🏥"
-  },
-  {
-    title: "Education",
-    description: "Learning management systems, student portals, and educational content delivery.",
-    icon: "🎓"
-  },
-  {
-    title: "Finance",
-    description: "Financial planning tools, expense tracking, and compliance reporting systems.",
-    icon: "💼"
-  },
-  {
-    title: "Manufacturing",
-    description: "Inventory management, production planning, and quality control systems.",
-    icon: "🏭"
-  },
-  {
-    title: "Retail",
-    description: "Point-of-sale systems, inventory management, and customer loyalty programs.",
-    icon: "🛍️"
-  },
-  {
-    title: "Non-Profit",
-    description: "Donor management, volunteer coordination, and impact tracking systems.",
-    icon: "🤝"
-  }
-]
 
 const process = [
   {
@@ -167,7 +108,7 @@ export default function BusinessApplicationsPage() {
             className="text-center mb-16"
           >
             <Link
-              href="/"
+              href="/#services"
               className="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors mb-8 group"
             >
               <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
@@ -198,47 +139,6 @@ export default function BusinessApplicationsPage() {
       </section>
 
 
-      {/* Technologies Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4 md:px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Technologies & Platforms
-            </h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">
-              I use modern, scalable technologies to build robust business applications that grow with your company.
-            </p>
-          </motion.div>
-          
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="flex flex-wrap justify-center gap-3"
-          >
-            {technologies.map((tech, index) => (
-              <motion.div
-                key={tech}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: index * 0.05 }}
-                viewport={{ once: true }}
-              >
-                <Badge variant="outline" className="bg-black/40 border-purple-500/30 text-purple-300 hover:bg-purple-500/10 px-4 py-2 text-sm">
-                  {tech}
-                </Badge>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
 
       {/* Features Section */}
       <section className="py-16">
@@ -306,102 +206,7 @@ export default function BusinessApplicationsPage() {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4 md:px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Business Application Services
-            </h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">
-              From simple workflow automation to complex enterprise systems, I deliver solutions that transform your business operations.
-            </p>
-          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {services.map((service, index) => (
-              <motion.div
-                key={service.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <Card className="bg-black/40 border-gray-800 hover:border-purple-500/50 transition-all duration-300 h-full">
-                  <CardHeader>
-                    <CardTitle className="text-xl text-white mb-2">
-                      {service.title}
-                    </CardTitle>
-                    <CardDescription className="text-gray-400 mb-6">
-                      {service.description}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2">
-                      {service.features.map((feature, featureIndex) => (
-                        <li key={featureIndex} className="flex items-center gap-2 text-gray-300">
-                          <CheckCircle className="w-4 h-4 text-green-400 flex-shrink-0" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Industries Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4 md:px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Industries I Serve
-            </h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">
-              Experience across various industries with deep understanding of sector-specific requirements and challenges.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {industries.map((industry, index) => (
-              <motion.div
-                key={industry.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <Card className="bg-black/40 border-gray-800 hover:border-purple-500/50 transition-all duration-300 h-full group hover:bg-black/60 text-center">
-                  <CardHeader>
-                    <div className="text-4xl mb-4">{industry.icon}</div>
-                    <CardTitle className="text-xl text-white group-hover:text-purple-300 transition-colors">
-                      {industry.title}
-                    </CardTitle>
-                    <CardDescription className="text-gray-400">
-                      {industry.description}
-                    </CardDescription>
-                  </CardHeader>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Process Section */}
       <section className="py-16">

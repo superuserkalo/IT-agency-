@@ -56,8 +56,20 @@ export default function Header() {
     }
   }, [isMenuOpen])
 
+  const handleFAQClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    const faqSection = document.getElementById('faq')
+    if (faqSection) {
+      faqSection.scrollIntoView({ behavior: 'smooth' })
+    } else {
+      // If not on front page, navigate to front page with hash
+      window.location.href = '/#faq'
+    }
+    setIsMenuOpen(false) // Close mobile menu if open
+  }
+
   const navLinks = [
-    { href: "#faq", label: "FAQ" },
+    { href: "/#faq", label: "FAQ", onClick: handleFAQClick },
     { href: "/contact", label: "Contact" },
   ]
 
@@ -133,6 +145,7 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
+                onClick={link.onClick}
                 className="text-gray-300 hover:text-white transition-colors duration-300 relative group cursor-pointer"
                 prefetch={false}
               >
@@ -228,7 +241,7 @@ export default function Header() {
                   <motion.div key={link.href} variants={navItemVariants}>
                     <Link
                       href={link.href}
-                      onClick={() => setIsMenuOpen(false)}
+                      onClick={link.onClick || (() => setIsMenuOpen(false))}
                       className="inline-block w-full py-4 text-2xl sm:text-3xl font-semibold transition-colors hover:text-purple-400 active:text-purple-500 cursor-pointer touch-manipulation"
                       prefetch={false}
                     >
