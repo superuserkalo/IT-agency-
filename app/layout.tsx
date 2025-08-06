@@ -1,39 +1,28 @@
+import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Inter } from 'next/font/google'
 import "./globals.css"
+import { cn } from "@/lib/utils"
+import { AnimatedBackground } from "@/components/animated-background"
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
 
 export const metadata: Metadata = {
-  title: "Kaloyan Gantchev - IT Solutions & Web Development",
-  description: "Professional IT services including web development, e-commerce solutions, business applications, and digital marketing & SEO. Transform your business with cutting-edge technology.",
-  keywords: "web development, e-commerce, business applications, digital marketing, SEO, IT solutions",
-  authors: [{ name: "Kaloyan Gantchev" }],
-  creator: "Kaloyan Gantchev",
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://kaloyan.gantchev.com",
-    siteName: "Kaloyan Gantchev - IT Solutions",
-    title: "Kaloyan Gantchev - IT Solutions & Web Development",
-    description: "Professional IT services including web development, e-commerce solutions, business applications, and digital marketing & SEO.",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Kaloyan Gantchev - IT Solutions & Web Development",
-    description: "Professional IT services including web development, e-commerce solutions, business applications, and digital marketing & SEO.",
-  },
+  title: "kaloyan.gantchev - Digital Strategy & Web Development",
+  description: "Empowering Businesses to Reach New Digital Heights.",
+    generator: 'v0.dev'
 }
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode
-}) {
+}>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
-        {children}
+    <html lang="en" className="dark">
+      <body className={cn("min-h-screen font-sans antialiased", inter.variable)}>
+        <AnimatedBackground />
+        <div className="relative z-10">{children}</div>
       </body>
     </html>
   )

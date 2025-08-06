@@ -1,12 +1,11 @@
 "use client"
 
-import { useRef, useState } from "react"
+import { useRef, useState, Fragment } from "react"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { ArrowRight, Gem, Milestone, Server, Code, Asterisk, ShoppingCart, Building, TrendingUp } from "lucide-react"
 import Link from "next/link"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
-import { AnimatedBackground } from "@/components/animated-background"
 import { PerformanceOptimizations } from "@/components/performance-optimizations"
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
 import { AnimatedGradientButton } from "@/components/ui/animated-gradient-button"
@@ -37,11 +36,36 @@ const containerVariants = {
   },
 }
 
+const keywords = [
+  "Partner in Digital Growth",
+  "Custom Web Development",
+  "UX & UI Design",
+  "Enterprise E-Commerce",
+  "Digital Strategy That Drives Results",
+  "Future-Proof & Scalable Architectures",
+  "Performance Optimization",
+  "Brand Identity",
+  "Secure & Reliable Solutions",
+]
 
+const halfIndex = Math.ceil(keywords.length / 2)
+const firstHalf = keywords.slice(0, halfIndex)
+const secondHalf = keywords.slice(halfIndex)
 
 export default function Component() {
   const heroRef = useRef(null)
   const [selectedCategory, setSelectedCategory] = useState("Web- / App-Development")
+  
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  })
+
+  const x = useTransform(scrollYProgress, [0.1, 0.9], ["0%", "-50%"])
+
+  // Faster transforms for mobile opposite scroll
+  const x1 = useTransform(scrollYProgress, [0.1, 0.9], ["0%", "-50%"])
+  const x2 = useTransform(scrollYProgress, [0.1, 0.9], ["-50%", "0%"])
 
   // Organized FAQ data by categories
   const faqData = {
@@ -169,13 +193,9 @@ export default function Component() {
 
 
   return (
-    <div className="flex flex-col text-gray-50 relative">
+    <div className="flex flex-col min-h-screen text-gray-50 relative">
       {/* ENHANCED Performance optimizations for mobile */}
       <PerformanceOptimizations />
-      {/* ENHANCED Animated particle background with performance optimization */}
-      <AnimatedBackground />
-      {/* Dynamic gradient background that responds to interactions */}
-      <div className="absolute inset-0 bg-gradient-to-b from-purple-500/10 via-transparent to-transparent z-0" />
       <Header />
       <main className="flex-1 relative z-10">
         <section id="hero" ref={heroRef} className="w-full h-[100vh] flex items-center justify-center">
@@ -196,10 +216,38 @@ export default function Component() {
               </h1>
             </motion.div>
 
-            <div className="w-full max-w-4xl mx-auto mt-16 text-center">
-              <p className="text-gray-400 text-lg">
-                Partner in Digital Growth • Custom Web Development • UX & UI Design • Enterprise E-Commerce • Performance Optimization
-              </p>
+            <div className="w-full max-w-6xl mx-auto overflow-hidden mt-20">
+              {/* Mobile two-line view */}
+              <div className="flex flex-col gap-2 md:hidden">
+                <motion.div className="flex items-center gap-x-2" style={{ x: x1 }}>
+                  {[...firstHalf, ...firstHalf].map((keyword, i) => (
+                    <Fragment key={`mobile-first-${i}`}>
+                      <span className="text-gray-400 whitespace-nowrap text-sm shrink-0">{keyword}</span>
+                      <Asterisk className="w-3 h-3 text-pink-500 shrink-0" />
+                    </Fragment>
+                  ))}
+                </motion.div>
+                <motion.div className="flex items-center gap-x-2" style={{ x: x2 }}>
+                  {[...secondHalf, ...secondHalf].map((keyword, i) => (
+                    <Fragment key={`mobile-second-${i}`}>
+                      <span className="text-gray-400 whitespace-nowrap text-sm shrink-0">{keyword}</span>
+                      <Asterisk className="w-3 h-3 text-pink-500 shrink-0" />
+                    </Fragment>
+                  ))}
+                </motion.div>
+              </div>
+
+              {/* Desktop single-line view */}
+              <div className="hidden md:flex">
+                <motion.div className="flex items-center gap-x-2" style={{ x }}>
+                  {[...keywords, ...keywords].map((keyword, i) => (
+                    <Fragment key={`desktop-${i}`}>
+                      <span className="text-gray-400 whitespace-nowrap text-lg shrink-0">{keyword}</span>
+                      <Asterisk className="w-4 h-4 text-pink-500 shrink-0" />
+                    </Fragment>
+                  ))}
+                </motion.div>
+              </div>
             </div>
 
             <motion.div

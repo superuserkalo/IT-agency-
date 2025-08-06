@@ -302,7 +302,7 @@ export default function WebDevelopmentPage() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative">
             {process.map((step, index) => (
               <motion.div
                 key={step.step}
@@ -310,14 +310,22 @@ export default function WebDevelopmentPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="text-center"
+                className="text-center relative"
               >
                 <div className="relative mb-6">
-                  <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <div className="w-16 h-16 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 relative z-10">
                     <span className="text-white font-bold text-lg">{step.step}</span>
                   </div>
+                  
+                  {/* Desktop horizontal connector line */}
                   {index < process.length - 1 && (
-                    <div className="hidden lg:block absolute top-8 left-full w-full h-0.5 bg-gradient-to-r from-purple-600/50 to-transparent -translate-y-0.5" />
+                    <div className="hidden lg:block absolute top-8 left-1/2 w-full h-0.5 bg-gradient-to-r from-purple-600/50 to-purple-600/50 transform translate-x-8" 
+                         style={{ width: 'calc(100% + 2rem)' }} />
+                  )}
+                  
+                  {/* Mobile vertical connector line */}
+                  {index < process.length - 1 && (
+                    <div className="block lg:hidden absolute top-20 left-1/2 w-0.5 h-16 bg-gradient-to-b from-purple-600/50 to-purple-600/50 -translate-x-0.5" />
                   )}
                 </div>
                 <h3 className="text-xl font-semibold text-white mb-3">{step.title}</h3>
