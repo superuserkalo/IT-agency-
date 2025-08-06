@@ -278,10 +278,7 @@ export default function Component() {
         >
           <div className="w-full max-w-5xl mx-auto px-4 md:px-6">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              viewport={{ once: true }}
+              variants={cardVariants}
               className="text-center mb-12"
             >
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">

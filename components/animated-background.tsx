@@ -13,25 +13,22 @@ export function AnimatedBackground() {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    // Set canvas size with proper device pixel ratio handling
+    // Set canvas size with proper device pixel ratio handling for full viewport
     const setCanvasSize = () => {
-      const rect = canvas.getBoundingClientRect()
       const dpr = window.devicePixelRatio || 1
+      const width = window.innerWidth
+      const height = window.innerHeight
       
       // Set the internal size (in memory)
-      canvas.width = rect.width * dpr
-      canvas.height = rect.height * dpr
+      canvas.width = width * dpr
+      canvas.height = height * dpr
       
       // Scale the canvas back down using CSS
-      canvas.style.width = rect.width + 'px'
-      canvas.style.height = rect.height + 'px'
+      canvas.style.width = width + 'px'
+      canvas.style.height = height + 'px'
       
       // Scale the drawing context so everything draws at the correct size
       ctx.scale(dpr, dpr)
-      
-      // Store actual display dimensions for calculations
-      canvas.dataset.displayWidth = rect.width.toString()
-      canvas.dataset.displayHeight = rect.height.toString()
     }
     setCanvasSize()
 
@@ -52,13 +49,9 @@ export function AnimatedBackground() {
     const isMobile = window.innerWidth < 768
     const particleCount = isMobile ? 40 : 80
     
-    // Get display dimensions for particle positioning
-    const getDisplayWidth = () => parseFloat(canvas.dataset.displayWidth || '0') || window.innerWidth
-    const getDisplayHeight = () => parseFloat(canvas.dataset.displayHeight || '0') || window.innerHeight
-    
     for (let i = 0; i < particleCount; i++) {
-      const x = Math.random() * getDisplayWidth()
-      const y = Math.random() * getDisplayHeight()
+      const x = Math.random() * window.innerWidth
+      const y = Math.random() * window.innerHeight
       const vx = (Math.random() - 0.5) * 0.5
       const vy = (Math.random() - 0.5) * 0.5
       particles.push({
@@ -92,12 +85,9 @@ export function AnimatedBackground() {
 
     // Animation loop
     const animate = () => {
-      // Clear and fill background using display dimensions
-      const displayWidth = getDisplayWidth()
-      const displayHeight = getDisplayHeight()
-      
+      // Clear and fill background using window dimensions
       ctx.fillStyle = '#000000'
-      ctx.fillRect(0, 0, displayWidth, displayHeight)
+      ctx.fillRect(0, 0, window.innerWidth, window.innerHeight)
       
       const mouse = mouseRef.current
       
@@ -124,19 +114,16 @@ export function AnimatedBackground() {
         particle.x += particle.vx
         particle.y += particle.vy
 
-        // Bounce off edges using display dimensions
-        const displayWidth = getDisplayWidth()
-        const displayHeight = getDisplayHeight()
-        
-        if (particle.x <= 0 || particle.x >= displayWidth) {
+        // Bounce off edges using window dimensions
+        if (particle.x <= 0 || particle.x >= window.innerWidth) {
           particle.vx *= -1
           particle.originalVx *= -1
-          particle.x = Math.max(0, Math.min(displayWidth, particle.x))
+          particle.x = Math.max(0, Math.min(window.innerWidth, particle.x))
         }
-        if (particle.y <= 0 || particle.y >= displayHeight) {
+        if (particle.y <= 0 || particle.y >= window.innerHeight) {
           particle.vy *= -1
           particle.originalVy *= -1
-          particle.y = Math.max(0, Math.min(displayHeight, particle.y))
+          particle.y = Math.max(0, Math.min(window.innerHeight, particle.y))
         }
 
         // Draw particle with subtle glow
@@ -173,12 +160,10 @@ export function AnimatedBackground() {
     // Handle resize
     const handleResize = () => {
       setCanvasSize()
-      // Update particle bounds on resize using display dimensions
-      const displayWidth = getDisplayWidth()
-      const displayHeight = getDisplayHeight()
+      // Update particle bounds on resize using window dimensions
       particles.forEach(particle => {
-        if (particle.x > displayWidth) particle.x = displayWidth
-        if (particle.y > displayHeight) particle.y = displayHeight
+        if (particle.x > window.innerWidth) particle.x = window.innerWidth
+        if (particle.y > window.innerHeight) particle.y = window.innerHeight
       })
     }
     window.addEventListener('resize', handleResize)
