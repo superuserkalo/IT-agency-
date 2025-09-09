@@ -5,7 +5,6 @@ import { ArrowLeft, ShoppingCart, CreditCard, Package, BarChart3, Users, Shield,
 import Link from "next/link"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
-import { AnimatedBackground } from "@/components/animated-background"
 import { AnimatedGradientButton } from "@/components/ui/animated-gradient-button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -88,11 +87,10 @@ const benefits = [
 
 export default function EcommercePage() {
   return (
-    <div className="flex flex-col text-gray-50 relative">
+    <div className="flex flex-col text-gray-50 relative bg-black">
       {/* Animated particle background */}
-      <AnimatedBackground />
       {/* Fixed background gradient that stays in place */}
-      <div className="absolute inset-0 bg-gradient-to-b from-purple-500/10 via-transparent to-transparent z-0" />
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-900 via-black to-gray-900 z-0" />
       <Header />
       
       <main className="flex-1 relative z-10">

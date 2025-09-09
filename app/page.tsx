@@ -6,8 +6,6 @@ import { ArrowRight, Gem, Milestone, Server, Code, Asterisk, ShoppingCart, Build
 import Link from "next/link"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
-import { PerformanceOptimizations } from "@/components/performance-optimizations"
-import { AnimatedBackground } from "@/components/animated-background"
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
 import { AnimatedGradientButton } from "@/components/ui/animated-gradient-button"
 
@@ -195,13 +193,9 @@ export default function Component() {
 
 
   return (
-    <div className="flex flex-col min-h-screen text-gray-50 relative" style={{ position: 'relative' }}>
-      {/* Animated particle background */}
-      <AnimatedBackground />
+    <div className="flex flex-col min-h-screen text-gray-50 relative bg-black" style={{ position: 'relative' }}>
       {/* Fixed background gradient that stays in place */}
-      <div className="absolute inset-0 bg-gradient-to-b from-purple-500/10 via-transparent to-transparent z-0" />
-      {/* ENHANCED Performance optimizations for mobile */}
-      <PerformanceOptimizations />
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-900 via-black to-gray-900 z-0" />
       <Header />
       <main className="flex-1 relative z-10">
         <section id="hero" ref={heroRef} className="w-full h-[100vh] flex items-center justify-center">

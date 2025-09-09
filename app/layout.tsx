@@ -3,7 +3,6 @@ import type { Metadata } from "next"
 import { Inter } from 'next/font/google'
 import "./globals.css"
 import { cn } from "@/lib/utils"
-import { AnimatedBackground } from "@/components/animated-background"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" })
 
@@ -21,7 +20,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={cn("min-h-screen font-sans antialiased", inter.variable)}>
-        <AnimatedBackground />
         <div className="relative z-10">{children}</div>
       </body>
     </html>

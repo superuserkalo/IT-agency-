@@ -3,13 +3,11 @@
 import { motion } from "framer-motion"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
-import { AnimatedBackground } from "@/components/animated-background"
 
 export default function AboutPage() {
   return (
-    <div className="flex flex-col min-h-[100dvh] text-gray-50 relative">
-      <AnimatedBackground />
-      <div className="absolute inset-0 bg-gradient-to-b from-purple-500/10 via-transparent to-transparent z-0" />
+    <div className="flex flex-col min-h-[100dvh] text-gray-50 relative bg-black">
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-900 via-black to-gray-900 z-0" />
       <Header />
       
       <main className="flex-1 pt-20 relative z-10">
