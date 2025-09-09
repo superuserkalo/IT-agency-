@@ -6,7 +6,6 @@ import { Mail, Phone, MapPin, CheckCircle, AlertCircle, Loader2 } from "lucide-r
 import Link from "next/link"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
-import { AnimatedBackground } from "@/components/animated-background"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
@@ -64,7 +63,7 @@ export default function ContactPage() {
   const [agreed, setAgreed] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
-  
+
   // ENHANCED form state with real-time validation
   const [formData, setFormData] = useState<FormData>({
     fullname: '',
@@ -73,7 +72,7 @@ export default function ContactPage() {
     phone: '',
     message: ''
   })
-  
+
   const [errors, setErrors] = useState<FormErrors>({})
 
   // Simple validation only on submit
@@ -91,7 +90,7 @@ export default function ContactPage() {
         return undefined
     }
   }
-  
+
   // Memoized input handlers to prevent re-renders
   const handleFullnameChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData(prev => ({ ...prev, fullname: e.target.value }))
@@ -114,36 +113,36 @@ export default function ContactPage() {
     const value = e.target.value.slice(0, 500) // Limit to 500 characters
     setFormData(prev => ({ ...prev, message: value }))
   }, [])
-  
+
   // ENHANCED form submission with validation
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
+
     // Validate form
-    
+
     // Validate all fields
     const newErrors: FormErrors = {}
     Object.entries(formData).forEach(([key, value]) => {
       const error = validateField(key as keyof FormData, value)
       if (error) newErrors[key as keyof FormErrors] = error
     })
-    
+
     setErrors(newErrors)
-    
+
     // Check if form is valid
     if (Object.keys(newErrors).length > 0 || !agreed) {
       return
     }
-    
+
     // Simulate form submission
     setIsSubmitting(true)
     setSubmitStatus('idle')
-    
+
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 2000))
       setSubmitStatus('success')
-      
+
       // Reset form after successful submission
       setTimeout(() => {
         setFormData({ fullname: '', email: '', company: '', phone: '', message: '' })
@@ -157,14 +156,13 @@ export default function ContactPage() {
       setIsSubmitting(false)
     }
   }
-  
-  
+
+
   return (
-    <div className="flex flex-col min-h-[100dvh] text-gray-50 relative">
+    <div className="flex flex-col min-h-[100dvh] text-gray-50 relative bg-black">
       {/* ENHANCED Animated particle background */}
-      <AnimatedBackground />
       {/* Dynamic gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-purple-500/10 via-transparent to-transparent z-0" />
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-900 via-black to-gray-900 z-0" />
       <Header />
       <main className="flex-1 flex flex-col justify-center pt-20 relative z-10">
         <motion.section
@@ -187,15 +185,15 @@ export default function ContactPage() {
                 <div className="space-y-3 pt-2">
                   <p className="flex items-center gap-3 text-gray-300">
                     <Mail className="h-5 w-5 text-purple-400" />
-hello@kaloyan.gantchev.com
+                  kaloyangantchev@gmail.com
                   </p>
                   <p className="flex items-center gap-3 text-gray-300">
                     <Phone className="h-5 w-5 text-purple-400" />
-                    +48 731 499 788
+                    +43 676 380 3688
                   </p>
                   <p className="flex items-center gap-3 text-gray-300">
                     <MapPin className="h-5 w-5 text-purple-400" />
-                    Stephansplatz 1, 1010 Wien, Austria
+                    Inge-Konradi-Gasse, 1210 Wien, Austria
                   </p>
                 </div>
               </motion.div>
@@ -203,7 +201,7 @@ hello@kaloyan.gantchev.com
                 <div className="p-8 rounded-xl border border-white/10 bg-black/20 backdrop-blur-sm relative overflow-hidden">
                   {/* Premium gradient border effect */}
                   <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-purple-500/10 via-transparent to-blue-500/10 pointer-events-none" />
-                  
+
                   <div className="relative z-10">
                     {/* ENHANCED success/error status display */}
                     <AnimatePresence>
@@ -236,7 +234,7 @@ hello@kaloyan.gantchev.com
                         </motion.div>
                       )}
                     </AnimatePresence>
-                    
+
                     <form className="space-y-4" onSubmit={handleSubmit}>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
