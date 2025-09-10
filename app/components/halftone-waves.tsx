@@ -73,8 +73,8 @@ export default function Component() {
   return (
     <div className="relative w-full h-screen">
       <canvas ref={canvasRef} className="w-full h-screen bg-black" />
-      {/* Gradient mask to blend the bottom edge */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent pointer-events-none" />
+      {/* Enhanced gradient mask to blend the bottom edge and prepare for footer */}
+      <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-black via-black/90 to-transparent pointer-events-none" />
     </div>
   )
 }

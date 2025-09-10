@@ -195,17 +195,17 @@ export default function Component() {
 
   return (
     <div className="flex flex-col min-h-screen text-gray-50 relative bg-black" style={{ position: 'relative' }}>
-      {/* Halftone waves background - lowest layer */}
-      <div className="absolute inset-0 z-0">
+      {/* Halftone waves background - limited to main content area */}
+      <div className="absolute top-0 left-0 right-0 bottom-0 z-0" style={{ height: '100vh' }}>
         <HalftoneWaves />
       </div>
       
-      {/* Gradient overlay on top of halftone waves */}
+      {/* Gradient overlay on top of halftone waves - full page for seamless blending */}
       <div className="absolute inset-0 bg-gradient-to-b from-gray-900/80 via-black/60 to-gray-900/80 z-10" />
       
       <Header />
       <main className="flex-1 relative z-20">
-        <section id="hero" ref={heroRef} className="w-full h-[100vh] flex items-center justify-center">
+        <section id="hero" ref={heroRef} className="w-full h-[100vh] flex items-center justify-center relative">
           <div className="container px-4 md:px-6 text-center flex flex-col items-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -465,7 +465,9 @@ export default function Component() {
           </div>
         </motion.section>
       </main>
-      <Footer />
+      <div className="relative z-30">
+        <Footer />
+      </div>
     </div>
   )
 }
