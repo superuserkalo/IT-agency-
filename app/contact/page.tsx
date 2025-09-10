@@ -139,18 +139,32 @@ export default function ContactPage() {
     setSubmitStatus('idle')
 
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000))
-      setSubmitStatus('success')
+      // Make real API call to contact endpoint
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
 
-      // Reset form after successful submission
-      setTimeout(() => {
-        setFormData({ fullname: '', email: '', company: '', phone: '', message: '' })
-        setErrors({})
-        setAgreed(false)
-        setSubmitStatus('idle')
-      }, 3000)
+      const result = await response.json()
+
+      if (response.ok) {
+        setSubmitStatus('success')
+        
+        // Reset form after successful submission
+        setTimeout(() => {
+          setFormData({ fullname: '', email: '', company: '', phone: '', message: '' })
+          setErrors({})
+          setAgreed(false)
+          setSubmitStatus('idle')
+        }, 3000)
+      } else {
+        throw new Error(result.error || 'Failed to send message')
+      }
     } catch (error) {
+      console.error('Form submission error:', error)
       setSubmitStatus('error')
     } finally {
       setIsSubmitting(false)

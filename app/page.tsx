@@ -1,5 +1,6 @@
 "use client"
 
+import HalftoneWaves from "@/app/components/halftone-waves"
 import { useRef, useState, Fragment } from "react"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { ArrowRight, Gem, Milestone, Server, Code, Asterisk, ShoppingCart, Building, TrendingUp } from "lucide-react"
@@ -55,7 +56,7 @@ const secondHalf = keywords.slice(halfIndex)
 export default function Component() {
   const heroRef = useRef(null)
   const [selectedCategory, setSelectedCategory] = useState("Web- / App-Development")
-  
+
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
@@ -194,15 +195,21 @@ export default function Component() {
 
   return (
     <div className="flex flex-col min-h-screen text-gray-50 relative bg-black" style={{ position: 'relative' }}>
-      {/* Fixed background gradient that stays in place */}
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-900 via-black to-gray-900 z-0" />
+      {/* Halftone waves background - lowest layer */}
+      <div className="absolute inset-0 z-0">
+        <HalftoneWaves />
+      </div>
+      
+      {/* Gradient overlay on top of halftone waves */}
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-900/80 via-black/60 to-gray-900/80 z-10" />
+      
       <Header />
-      <main className="flex-1 relative z-10">
+      <main className="flex-1 relative z-20">
         <section id="hero" ref={heroRef} className="w-full h-[100vh] flex items-center justify-center">
           <div className="container px-4 md:px-6 text-center flex flex-col items-center">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }} 
-              animate={{ opacity: 1, y: 0 }} 
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
               className="px-4 sm:px-6"
             >
@@ -283,7 +290,7 @@ export default function Component() {
                 From concept to launch, I deliver complete digital solutions tailored to your business needs.
               </p>
             </motion.div>
-            
+
             <div className="grid w-full gap-6 sm:gap-8 grid-cols-1 md:grid-cols-2">
               {[
                 {
@@ -357,7 +364,7 @@ export default function Component() {
                 Frequently Asked Questions
               </h2>
             </motion.div>
-            
+
             <div className="max-w-6xl mx-auto">
               <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
                 {/* Categories - Mobile Dropdown + Desktop List */}
@@ -395,7 +402,7 @@ export default function Component() {
                     ))}
                   </div>
                 </div>
-                
+
                 {/* FAQ Content */}
                 <div className="lg:col-span-3">
                   <motion.div
@@ -406,8 +413,8 @@ export default function Component() {
                   >
                     <Accordion type="single" collapsible className="w-full space-y-4">
                       {faqData[selectedCategory]?.map((item, i) => (
-                        <motion.div 
-                          key={i} 
+                        <motion.div
+                          key={i}
                           variants={cardVariants}
                           initial="offscreen"
                           animate="onscreen"
